@@ -11,11 +11,73 @@
 
 // Решение:
 
-int Number()
+// int Number()
+// {
+//     if (int.TryParse(Console.ReadLine(), out int inputNum))
+//     {
+//         if (inputNum <= 0)
+//         {
+//             Console.WriteLine("Неверный ввод");
+//             Environment.Exit(0);
+//         }
+//     }
+//     else
+//     {
+//         Console.WriteLine("Это не число!");
+//         Environment.Exit(0);
+//     }
+//     return inputNum;
+// }
+
+// Console.WriteLine("Введите первое число");
+// int startNum = Number();
+// Console.WriteLine("Введите второе число");
+// int finalNum = Number();
+
+// // Console.WriteLine("start=" + startNum + " end=" + finalNum);
+
+// int tempNum;
+// if (startNum > finalNum)
+// {
+//     tempNum = startNum;
+//     startNum = finalNum;
+//     finalNum = tempNum;
+// }
+
+// Console.Write("[");
+// PrintNumbers(startNum, finalNum);
+
+// void PrintNumbers(int first, int final)
+// {
+//     if (first == final)
+//     {
+//         Console.Write(first + "]");
+//         return;
+//     }
+//     else
+//     {
+//         Console.Write($"{first}, ");
+//     }
+
+//     PrintNumbers(first + 1, final);
+// }
+
+// -----------------------------------------------
+
+// Задача 2: Напишите программу вычисления функции
+// Аккермана с помощью рекурсии. Даны два неотрицательных
+// числа m и n.
+
+// Пример: m = 2, n = 3 -> A(m,n) = 29
+
+// Решение:
+
+uint Number()
 {
-    if (int.TryParse(Console.ReadLine(), out int inputNum))
+    if (uint.TryParse(Console.ReadLine(), out uint inputNum))
     {
-        if (inputNum <= 0)
+        
+        if (inputNum < 0)
         {
             Console.WriteLine("Неверный ввод");
             Environment.Exit(0);
@@ -29,35 +91,36 @@ int Number()
     return inputNum;
 }
 
-Console.WriteLine("Введите первое число");
-int startNum = Number();
-Console.WriteLine("Введите второе число");
-int finalNum = Number();
+Console.WriteLine("Введите число m");
+uint firstNum = Number();
+Console.WriteLine("Введите число n");
+uint secondNum = Number();
 
-// Console.WriteLine("start=" + startNum + " end=" + finalNum);
+Console.Write($"A({firstNum},{secondNum}) = {Akkerman(firstNum, secondNum)}");
 
-int tempNum;
-if (startNum > finalNum)
+// Не могу понять в чём проблема
+// выше A(4,0) или A(3,11) не считает
+
+// Введите число m = 4   |  Введите число m = 3
+// Введите число n = 1   |  Введите число n = 12
+//
+// Stack overflow.       |  Stack overflow.
+// Repeat 13776 times:   |  Repeat 19285 times
+
+uint Akkerman(uint first, uint second)
 {
-    tempNum = startNum;
-    startNum = finalNum;
-    finalNum = tempNum;
-}
-
-Console.Write("[");
-PrintNumbers(startNum, finalNum);
-
-void PrintNumbers(int first, int final)
-{
-    if (first == final)
+    uint result;
+    if (first == 0)
     {
-        Console.Write(first + "]");
-        return;
+        result = second + 1;
+    }
+    else if (second == 0)
+    {
+        result = Akkerman(first - 1, 1);
     }
     else
     {
-        Console.Write($"{first}, ");
+        result = Akkerman(first - 1, Akkerman (first, second - 1));
     }
-
-    PrintNumbers(first + 1, final);
+    return result;
 }
