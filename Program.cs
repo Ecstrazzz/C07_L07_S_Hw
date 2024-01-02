@@ -72,12 +72,85 @@
 
 // Решение:
 
-uint Number()
+// uint Number()
+// {
+//     if (uint.TryParse(Console.ReadLine(), out uint inputNum))
+//     {
+
+//         if (inputNum < 0)
+//         {
+//             Console.WriteLine("Неверный ввод");
+//             Environment.Exit(0);
+//         }
+//     }
+//     else
+//     {
+//         Console.WriteLine("Это не число!");
+//         Environment.Exit(0);
+//     }
+//     return inputNum;
+// }
+
+// Console.WriteLine("Введите число m");
+// uint firstNum = Number();
+// Console.WriteLine("Введите число n");
+// uint secondNum = Number();
+
+// Console.Write($"A({firstNum},{secondNum}) = {Akkerman(firstNum, secondNum)}");
+
+// // Не могу понять в чём проблема
+// // выше A(4,0) или A(3,11) не считает
+
+// // Введите число m = 4   |  Введите число m = 3
+// // Введите число n = 1   |  Введите число n = 12
+// //
+// // Stack overflow.       |  Stack overflow.
+// // Repeat 13776 times:   |  Repeat 19285 times
+
+// uint Akkerman(uint first, uint second)
+// {
+//     uint result;
+//     if (first == 0)
+//     {
+//         result = second + 1;
+//     }
+//     else if (second == 0)
+//     {
+//         result = Akkerman(first - 1, 1);
+//     }
+//     else
+//     {
+//         result = Akkerman(first - 1, Akkerman (first, second - 1));
+//     }
+//     return result;
+// }
+
+// -----------------------------------------------
+
+// Задача 3: Задайте произвольный массив. Выведете его
+// элементы, начиная с конца. Использовать рекурсию,
+// не использовать циклы.
+
+// Пример: [1, 2, 5, 0, 10, 34] => 34 10 0 5 2 1
+
+// Решение:
+
+Console.WriteLine("Введите размер массива");
+int[] array = new int[arraySize()];
+int num = 0;
+int numEnd = array.Length-1;
+
+Console.Write("[");
+createArray();
+Console.Write("] => [");
+printReverseArray();
+Console.Write("]");
+
+int arraySize()
 {
-    if (uint.TryParse(Console.ReadLine(), out uint inputNum))
+    if (int.TryParse(Console.ReadLine(), out int inputNum))
     {
-        
-        if (inputNum < 0)
+        if (inputNum <= 0)
         {
             Console.WriteLine("Неверный ввод");
             Environment.Exit(0);
@@ -91,36 +164,39 @@ uint Number()
     return inputNum;
 }
 
-Console.WriteLine("Введите число m");
-uint firstNum = Number();
-Console.WriteLine("Введите число n");
-uint secondNum = Number();
-
-Console.Write($"A({firstNum},{secondNum}) = {Akkerman(firstNum, secondNum)}");
-
-// Не могу понять в чём проблема
-// выше A(4,0) или A(3,11) не считает
-
-// Введите число m = 4   |  Введите число m = 3
-// Введите число n = 1   |  Введите число n = 12
-//
-// Stack overflow.       |  Stack overflow.
-// Repeat 13776 times:   |  Repeat 19285 times
-
-uint Akkerman(uint first, uint second)
+void createArray()
 {
-    uint result;
-    if (first == 0)
+    if (num == array.Length)
     {
-        result = second + 1;
+        return;
     }
-    else if (second == 0)
+    array[num] = new Random().Next(1, 10);
+    if (num == array.Length - 1)
     {
-        result = Akkerman(first - 1, 1);
+        Console.Write(array[num]);
     }
     else
     {
-        result = Akkerman(first - 1, Akkerman (first, second - 1));
+        Console.Write(array[num] + ", ");
+        num++;
+        createArray();
     }
-    return result;
+}
+
+void printReverseArray()
+{
+    if (numEnd < 0)
+    {
+        return;
+    }
+    if (numEnd == 0)
+    {
+        Console.Write(array[numEnd]);
+    }
+    else
+    {
+        Console.Write(array[numEnd] + ", ");
+        numEnd--;
+        printReverseArray();
+    }
 }
